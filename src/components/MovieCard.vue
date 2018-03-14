@@ -10,12 +10,27 @@
     </div>
 
     <div class="movie-card__highlights">
+      <star-rating
+        :rating="movie.rating"
+        :max-rating="4"
+        inactive-color="#dddddd"
+        active-color="#b9cb41"
+        :star-size="18"
+        :read-only="true"
+        :show-rating="false"/>
 
+      <div class="share">
+        <a href="https://facebook.com.br" target="_blank">
+          <img src="../assets/facebook.png" alt="Facebook">
+        </a>
+      </div>
     </div>
   </li>
 </template>
 
 <script>
+import StarRating from 'vue-star-rating'
+
 export default {
   name: 'MovieCard',
   props: {
@@ -23,6 +38,9 @@ export default {
       required: true,
       type: Object
     }
+  },
+  components: {
+    StarRating
   }
 }
 </script>
@@ -62,4 +80,21 @@ export default {
         @media screen and (min-width: 768px)
           line-height 16px
 
+    &__highlights
+      position absolute
+      height 50px
+      width 100%
+      left 0
+      bottom 0
+      border-top 1px solid #e8e8e8
+      display flex
+      flex-flow row wrap
+      align-items center
+      justify-content space-between
+
+      .vue-star-rating
+        margin 0 0 0 15px
+
+      .share
+        margin 0 15px 0 0
 </style>
