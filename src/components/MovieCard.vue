@@ -62,5 +62,4 @@ export default {
         @media screen and (min-width: 768px)
           line-height 16px
 
-
 </style>

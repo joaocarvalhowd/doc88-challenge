@@ -1,12 +1,20 @@
 <template>
-  <container>
-    <ul class="movie-list">
-      <movie-card
-        :movie="movie"
-        v-for="(movie, index) in movies"
-        :key="index"/>
-    </ul>
-  </container>
+  <div>
+    <container
+     v-infinite-scroll="loadMore"
+     infinite-scroll-disabled="loading"
+     infinite-scroll-distance="300">
+      <ul class="movie-list">
+        <movie-card
+          :movie="movie"
+          v-for="(movie, index) in movies"
+          :key="index"/>
+      </ul>
+    </container>
+    <container>
+      <loading :loading="loading"></loading>
+    </container>
+  </div>
 </template>
 
 <script>
@@ -14,6 +22,7 @@ import axios from 'axios'
 import paginateArray from 'paginate-array'
 import Container from '@/components/Container'
 import MovieCard from '@/components/MovieCard'
+import Loading from '@/components/Loading'
 
 export default {
   name: 'MovieList',
@@ -22,7 +31,8 @@ export default {
     currentPage: 1,
     perPage: 12,
     totalPages: null,
-    movies: []
+    movies: [],
+    loading: true
   }),
   methods: {
     async getMovies () {
@@ -41,15 +51,30 @@ export default {
       this.paginateFirstPage()
     },
     paginateFirstPage () {
-      const {data: movies, currentPage, totaPages} = paginateArray(this.moviesServer, this.currentPage, this.perPage)
+      setTimeout(() => {
+        const {data: movies, currentPage, totaPages} = paginateArray(this.moviesServer, this.currentPage, this.perPage)
 
-      this.currentPage = currentPage
-      this.totalPages = totaPages
+        this.currentPage = currentPage
+        this.totalPages = totaPages
 
-      this.movies = movies
+        this.movies = movies
+        this.loading = false
+      }, 1500)
     },
     loadMore () {
+      if (this.currentPage < this.totalPages) {
+        this.loading = true
 
+        setTimeout(() => {
+          const {data: movies, currentPage, totaPages} = paginateArray(this.moviesServer, this.currentPage + 1, this.perPage)
+
+          this.currentPage = currentPage
+          this.totalPages = totaPages
+
+          this.movies.push(...movies)
+          this.loading = false
+        }, 1500)
+      }
     }
   },
   mounted () {
@@ -57,7 +82,8 @@ export default {
   },
   components: {
     Container,
-    MovieCard
+    MovieCard,
+    Loading
   }
 }
 </script>
