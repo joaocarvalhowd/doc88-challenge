@@ -31,7 +31,8 @@ export default {
   .movie-card
     box-shadow 0 0 4px rgba(0, 0, 0, 0.12)
     background #fff
-    margin 0 0 15px
+    padding 0 0 50px
+    position relative
 
     &__image
       img
@@ -42,7 +43,6 @@ export default {
 
     &__info
       padding 18px
-      border-bottom 1px solid rgba(0, 0, 0, 0.22)
 
       h2
         font-size 26px

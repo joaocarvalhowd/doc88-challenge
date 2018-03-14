@@ -20,7 +20,7 @@ export default {
   data: () => ({
     moviesServer: [],
     currentPage: 1,
-    perPage: 15,
+    perPage: 12,
     totalPages: null,
     movies: []
   }),
@@ -75,11 +75,19 @@ export default {
 
     .movie-card
       flex 1 0 100%
+      margin 0 0 15px
 
       @media screen and (min-width: 768px) and (max-width: 991px)
-        max-width (4/12 * 100% - (1 - 4/12) * 15px)
-        margin 0 15px 0 0
+        max-width calc(4/12 * 100% - (1 - 4/12)*15px)
+        margin 0 15px 15px 0
 
         &:nth-child(3n)
-          margin 0
+          margin 0 0 15px
+
+      @media screen and (min-width: 992px)
+        max-width calc(3/12 * 100% - (1 - 3/12)*15px)
+        margin 0 15px 15px 0
+
+        &:nth-child(4n)
+          margin 0 0 15px
 </style>
