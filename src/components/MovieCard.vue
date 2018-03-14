@@ -6,6 +6,12 @@
 
     <div class="movie-card__info">
       <h2>{{ movie.title }}</h2>
+      <h3>
+        <span>
+          <img src="../assets/location.png">
+        </span>
+        {{ movie.category }}
+      </h3>
       <p>{{ movie.body }}</p>
     </div>
 
@@ -66,10 +72,20 @@ export default {
         font-size 26px
         line-height 27px
         color #717171
+        margin 0
 
         @media screen and (min-width: 768px)
           font-size 18px
           line-height 27px
+
+      h3
+        font-size 12px
+        color #acaaaa
+        font-weight 400
+        margin 15px 0 23px
+
+        @media screen and (min-width: 768px)
+          font-size 14px
 
       p
         font-size 13px
